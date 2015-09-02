@@ -1,0 +1,7 @@
+<launch>
+
+  <node pkg="turtlesim" name="mimic" type="mimic">
+       <remap from="input" to="/turtle1/cmd_vel"/>
+      <remap from="output" to="/epuck1701/cmd_vel"/>
+     </node>
+</launch>

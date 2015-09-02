@@ -1,0 +1,26 @@
+<launch>
+
+  <group ns="epuck2041">
+    <node pkg="epuck_control" name="epuck" type="epuck_control_node" output="screen"/>
+  </group>
+
+  <group ns="epuck2037">
+    <node pkg="epuck_control" name="epuck" type="epuck_control_node" output="screen"/>
+  </group>
+
+  <group ns="epuck2042">
+    <node pkg="epuck_control" name="epuck" type="epuck_control_node" output="screen"/>
+  </group>
+
+  <group ns="epuck1701">
+    <node pkg="epuck_control" name="epuck" type="epuck_control_node" output="screen"/>
+  </group>
+
+  <group ns="epuck1702">
+    <node pkg="epuck_control" name="epuck" type="epuck_control_node" output="screen"/>
+  </group>
+
+  <group ns="epuck2053">
+    <node pkg="epuck_control" name="epuck" type="epuck_control_node" output="screen"/>
+  </group>
+</launch>
