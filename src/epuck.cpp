@@ -22,11 +22,17 @@ e_puck::e_puck() {
 	std::string buffer;
 	std::string num= namesp.substr(7,4);
 	char numero_epuck[6];
+	char buf[30];
 	flag =0;
 	ros::Subscriber sub = nh_.subscribe("cmd_vel", 1000, &e_puck::cmd_vel_Callback, this);
 	ros::Publisher chatter_pub = nh_.advertise<std_msgs::Duration>("chatter", 1000);
 	connect(num);
 	ROS_INFO_STREAM("Numero "<< num);
+	int sp=sprintf(buf, "D,%d,%d\r",-1000,1000);
+	ser_->writeData(buf,sp,1000000);
+	ros::Duration(0.5).sleep();
+
+
 	ros::Time t;
 	ros::Duration d;
 	std_msgs::Duration msg;
@@ -38,12 +44,11 @@ e_puck::e_puck() {
 			right_freq_=left_freq_=0;
 		}
 		
-		ROS_INFO_STREAM(right_freq_);
-		ROS_INFO_STREAM(left_freq_);
+
 		char buffer[30];
 		int n = sprintf(buffer, "D,%d,%d\r",left_freq_,right_freq_);
 
-		ROS_INFO_STREAM("Serial Port"<<num);
+		//ROS_INFO_STREAM("Serial Port"<<num);
 		t = ros::Time::now();
 		int scritti = ser_->writeData(buffer,n,1000000);
 		d=ros::Time::now()-t;
@@ -67,6 +72,8 @@ void e_puck::cmd_vel_Callback(const geometry_msgs::Twist::ConstPtr& msg) {
 	right_freq_=(1000/6.28)*wr;
 	left_freq_=(1000/6.28)*wl;
 	last_vel_update_=ros::Time::now().toSec();
+	ROS_INFO_STREAM(right_freq_);
+	ROS_INFO_STREAM(left_freq_);
 }
 
 int e_puck::connect(std::string num) {
